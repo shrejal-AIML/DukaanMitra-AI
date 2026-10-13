@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="hi">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>DukaanMitra AI</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================
+         HEADER
+    ====================================== -->
+
+    <header class="top-header">
+
+        <div class="brand">
+
+            <div class="brand-icon">
+                🤖
+            </div>
+
+            <div>
+
+                <h1>
+                    DukaanMitra AI
+                </h1>
+
+                <p>
+                    आपकी दुकान का स्मार्ट AI साथी
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <select id="languageSelect"
+                class="language-select">
+
+            <option value="hi">
+                हिन्दी
+            </option>
+
+            <option value="en">
+                English
+            </option>
+
+        </select>
+
+    </header>
+
+
+
+    <!-- =====================================
+         HERO
+    ====================================== -->
+
+    <section class="hero-section">
+
+        <div class="hero-content">
+
+            <span class="hero-badge">
+                🤖 AI Powered Kirana Assistant
+            </span>
+
+            <h2>
+                आपकी दुकान,<br>
+                अब और भी स्मार्ट
+            </h2>
+
+            <p>
+                स्टॉक संभालें, बिक्री समझें
+                और नुकसान कम करें।
+            </p>
+
+
+            <div class="hero-badges">
+
+                <span>
+                    ✓ सही स्टॉक
+                </span>
+
+                <span>
+                    ✓ बेहतर बिक्री
+                </span>
+
+                <span>
+                    ✓ कम नुकसान
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="hero-graphic">
+
+            <div class="robot-circle">
+                🤖
+            </div>
+
+            <div class="floating-card stock-card">
+                📦 Stock
+            </div>
+
+            <div class="floating-card sales-card">
+                📈 Sales
+            </div>
+
+            <div class="floating-card alert-card">
+                ⚠️ Alert
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================
+         STOCK OVERVIEW
+    ====================================== -->
+
+    <section class="overview-section">
+
+        <div class="overview-card">
+
+            <span class="overview-icon">
+                📦
+            </span>
+
+            <div>
+
+                <p>
+                    Total Stock
+                </p>
+
+                <h3 id="totalStock">
+                    0
+                </h3>
+
+            </div>
+
+        </div>
+
+
+        <div class="overview-card">
+
+            <span class="overview-icon">
+                ⚠️
+            </span>
+
+            <div>
+
+                <p>
+                    Low Stock
+                </p>
+
+                <h3 id="lowStock">
+                    0
+                </h3>
+
+            </div>
+
+        </div>
+
+
+        <div class="overview-card">
+
+            <span class="overview-icon">
+                ⏰
+            </span>
+
+            <div>
+
+                <p>
+                    Expiring Soon
+                </p>
+
+                <h3 id="expiringSoon">
+                    0
+                </h3>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================
+         SHELF SCANNER
+    ====================================== -->
+
+    <section class="scanner-section">
+
+        <div class="section-heading">
+
+            <div>
+
+                <span>
+                    AI VISION
+                </span>
+
+                <h2>
+                    📷 Shelf Scanner
+                </h2>
+
+            </div>
+
+            <span class="status-dot">
+                ● Live
+            </span>
+
+        </div>
+
+
+        <div class="scanner-card">
+
+            <img
+                id="shelfImage"
+                src="{{ url_for('static', filename='images/shelf.png') }}"
+                alt="दुकान की shelf"
+                class="shelf-image"
+            >
+
+
+            <input
+                type="file"
+                id="imageInput"
+                name="image"
+                accept="image/*"
+                capture="environment"
+                hidden
+            >
+
+
+            <button
+                type="button"
+                id="scanButton"
+                class="scan-button">
+
+                📷 फोटो लें
+
+            </button>
+
+
+            <p id="scanStatus"
+               class="scan-status">
+            </p>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================
+         SHELF ANALYSIS
+    ====================================== -->
+
+    <section class="analysis-section">
+
+        <div class="section-heading">
+
+            <div>
+
+                <span>
+                    AI VISION RESULTS
+                </span>
+
+                <h2>
+                    🔍 Shelf Analysis
+                </h2>
+
+            </div>
+
+        </div>
+
+
+        <div class="analysis-summary">
+
+            <div class="analysis-stat">
+
+                <span>
+                    Objects Detected
+                </span>
+
+                <strong id="objectsDetected">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div class="analysis-stat">
+
+                <span>
+                    Types Found
+                </span>
+
+                <strong id="typesFound">
+                    0
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <div id="detectedProducts"
+             class="detected-products">
+
+            <div class="empty-analysis">
+
+                <div class="empty-icon">
+                    📦
+                </div>
+
+                <h3>
+                    Shelf scan करें
+                </h3>
+
+                <p>
+                    AI आपकी shelf में मौजूद
+                    products identify करेगा।
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================
+         SALES INTELLIGENCE
+    ====================================== -->
+
+    <section class="sales-section">
+
+        <div class="section-heading">
+
+            <div>
+
+                <span>
+                    AI SALES INTELLIGENCE
+                </span>
+
+                <h2>
+                    📈 Sales & Restock
+                </h2>
+
+            </div>
+
+            <span class="status-dot">
+                ● Live
+            </span>
+
+        </div>
+
+
+        <div id="salesResults"
+             class="sales-results">
+
+            <div class="empty-analysis">
+
+                <div class="empty-icon">
+                    📊
+                </div>
+
+                <h3>
+                    Sales Analysis
+                </h3>
+
+                <p>
+                    आपकी बिक्री के आधार पर AI
+                    restock recommendation देगा।
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================
+         EXPIRY INTELLIGENCE
+    ====================================== -->
+
+    <section class="expiry-section">
+
+        <div class="section-heading">
+
+            <div>
+
+                <span>
+                    EXPIRY INTELLIGENCE
+                </span>
+
+                <h2>
+                    ⏰ Expiry Alerts
+                </h2>
+
+            </div>
+
+            <span class="status-dot">
+                ● Live
+            </span>
+
+        </div>
+
+
+        <!-- EXPIRY OCR UPLOAD -->
+
+        <input
+            type="file"
+            id="expiryImageInput"
+            accept="image/*"
+            hidden
+        >
+
+
+        <button
+            type="button"
+            id="expiryScanButton"
+            class="scan-button">
+
+            📷 Scan Expiry Date
+
+        </button>
+
+
+        <p
+            id="expiryScanStatus"
+            class="scan-status">
+        </p>
+
+
+        <!-- EXPIRY DATA -->
+
+        <div
+            id="expiryResults"
+            class="expiry-results">
+
+            <div class="empty-analysis">
+
+                <div class="empty-icon">
+                    📦
+                </div>
+
+                <h3>
+                    Expiry Analysis
+                </h3>
+
+                <p>
+                    AI आपकी inventory में
+                    near-expiry products
+                    identify करेगा।
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================
+         ALERTS
+    ====================================== -->
+
+    <section class="alerts-section">
+
+        <div class="section-heading">
+
+            <div>
+
+                <span>
+                    SMART ALERTS
+                </span>
+
+                <h2>
+                    🚨 Important Alerts
+                </h2>
+
+            </div>
+
+        </div>
+
+
+        <div id="alertsContainer"
+             class="alerts-container">
+
+            <div class="empty-analysis">
+
+                <div class="empty-icon">
+                    🔔
+                </div>
+
+                <h3>
+                    No alerts yet
+                </h3>
+
+                <p>
+                    AI analysis के बाद
+                    important alerts यहाँ दिखाई देंगे।
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+<!-- =====================================
+     AI SHOPKEEPER ASSISTANT
+====================================== -->
+
+<section class="ai-assistant" id="aiAssistant">
+
+    <div class="ai-header">
+        <div class="ai-avatar">🤖</div>
+        <div>
+            <span>AI SHOPKEEPER ASSISTANT</span>
+            <h2>DukaanMitra से पूछें</h2>
+            <p>Stock, sales और expiry के बारे में पूछें।</p>
+        </div>
+    </div>
+
+    <div class="assistant-buttons">
+        <button type="button" class="assistant-btn"
+                data-question="आज कौन सा stock कम है?">
+            📦 कौन सा stock कम है?
+        </button>
+
+        <button type="button" class="assistant-btn"
+                data-question="कौन से products जल्दी expire होंगे?">
+            ⏰ कौन से products expire होंगे?
+        </button>
+
+        <button type="button" class="assistant-btn"
+                data-question="किस product को restock करना चाहिए?">
+            📈 क्या restock करें?
+        </button>
+
+        <button type="button" class="assistant-btn"
+                data-question="आज की बिक्री कैसी रही?">
+            💰 आज की बिक्री कैसी रही?
+        </button>
+    </div>
+
+    <button type="button" id="voiceButton" class="voice-button">
+        🎙️ Voice से पूछें
+    </button>
+
+    <div class="ai-chat-box">
+        <div id="chatMessages" class="chat-messages">
+            <div class="ai-message bot-message">
+                🤖 नमस्ते! मैं DukaanMitra AI हूँ।<br>
+                आप अपनी दुकान के stock, sales या expiry के बारे में पूछ सकते हैं।
+            </div>
+        </div>
+
+        <div class="chat-input-area chat-input-container">
+            <input
+                type="text"
+                id="chatInput"
+                placeholder="जैसे: मुझे क्या restock करना चाहिए?"
+                autocomplete="off"
+            >
+
+            <button type="button" id="chatSendButton" aria-label="Send message">
+                ➤
+            </button>
+        </div>
+    </div>
+
+</section>
+
+    
+            
+
+
+            
+
+
+
+
+    <!-- =====================================
+         BOTTOM NAVIGATION
+    ====================================== -->
+
+    <nav class="bottom-nav">
+
+        <button>
+
+            🏠
+
+            <span>
+                Home
+            </span>
+
+        </button>
+
+
+        <button>
+
+            📦
+
+            <span>
+                Stock
+            </span>
+
+        </button>
+
+
+        <button>
+
+            📷
+
+            <span>
+                Scan
+            </span>
+
+        </button>
+
+
+        <button>
+
+            📈
+
+            <span>
+                Sales
+            </span>
+
+        </button>
+
+
+        <button>
+
+            🤖
+
+            <span>
+                AI
+            </span>
+
+        </button>
+
+    </nav>
+
+
+
+    <!-- =====================================
+         JAVASCRIPT
+    ====================================== -->
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+
+</body>
+
+</html>
